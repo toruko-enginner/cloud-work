@@ -1,5 +1,5 @@
 /**
- * emeraldのボタン
+ * ログイン前ボタン（emerald）
  * @param {*} param0
  * @returns
  */
