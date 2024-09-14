@@ -1,4 +1,4 @@
-import React from "react";
+import {useState} from "react";
 import {ButtonBgEmerald} from "@/components/elements/button";
 import {InputTextForm, InputPassForm} from "@/components/elements/form";
 import {NoAuthLayout} from "@/components/templates/layout";
@@ -8,6 +8,7 @@ import {useRouter} from "next/navigation";
 import {passwordRule} from "@/config/yup.jp";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
+import {useAuth} from "@/contexts/authContext";
 
 /* バリデーション定義 */
 const schema = yup.object({
@@ -25,8 +26,10 @@ const schema = yup.object({
  * ログインフォーム
  * @returns
  */
-export default function AuthForm() {
+export default function Auth() {
     const router = useRouter();
+    const {login} = useAuth();
+    const [errorMessage, setErrorMessage] = useState("");
     const {
         register,
         handleSubmit,
@@ -38,7 +41,12 @@ export default function AuthForm() {
 
     /* ログイン処理 */
     const onSubmit = async (data) => {
-        console.log("data", data);
+        const result = await login(data["email"], data["password"]);
+        if (result.isSuccessed) {
+            router.push(result.urlTo);
+        } else {
+            setErrorMessage(result.errorMessage);
+        }
     };
 
     return (
@@ -59,6 +67,9 @@ export default function AuthForm() {
                     register={register}
                 />
                 <ButtonBgEmerald title="ログイン" type="submit"/>
+                <div className="mt-2">
+                    <span className="text-red-500 text-sm">{errorMessage}</span>
+                </div>
                 <div className="mt-6 text-center ">
                     <a className="text-sm text-emerald-500 hover:text-emerald-400" href="#">
                         パスワードをお忘れの方
