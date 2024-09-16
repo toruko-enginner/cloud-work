@@ -6,6 +6,13 @@ const config = {
             userPoolId: process.env.NEXT_PUBLIC_USER_POOLS_ID,
         },
     },
+    API: {
+        GraphQL: {
+            endpoint: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
+            region: process.env.NEXT_PUBLIC_AWS_REGION,
+            defaultAuthMode: "userPool",
+        },
+    },
 };
 
 export default config;
