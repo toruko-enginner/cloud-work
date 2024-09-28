@@ -12,6 +12,7 @@
     "@aws-amplify/cli": "^12.12.6",
     "@hookform/resolvers": "^3.9.0",
     "aws-amplify": "^6.6.0",
+    "jose": "^5.9.3",
     "next": "14.2.8",
     "react": "^18",
     "react-dom": "^18",
